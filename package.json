@@ -1,0 +1,22 @@
+{
+  "name": "yank.run",
+  "version": "0.0.1",
+  "description": "Yank any type of content to another machine with CLI",
+  "main": "api/index.js",
+  "repository": "https://github.com/nampdn/yank.run.git",
+  "author": "Nam Pham <nampdn@protonmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/node": "1.7.2",
+    "bcrypt": "5.0.0",
+    "cryptr": "6.0.2",
+    "pako": "1.0.11",
+    "redis": "3.0.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "3.0.0",
+    "@types/cryptr": "4.0.1",
+    "@types/pako": "1.0.1",
+    "@types/redis": "2.8.25"
+  }
+}
