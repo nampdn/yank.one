@@ -55,6 +55,7 @@ export default async (req: NowRequest, res: NowResponse) => {
         }
       } else {
         result = inflate(loadObj.c);
+        await delAsync(cacheKey as string);
         res.send(result);
       }
     }

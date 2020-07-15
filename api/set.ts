@@ -18,7 +18,12 @@ const client = redis.createClient(process.env.REDIS_URL);
 const sendCommandAsync = promisify(client.send_command).bind(client);
 const setAsync = promisify(client.set).bind(client);
 const getAsync = promisify(client.get).bind(client);
-const expireAsync = (key: string) => sendCommandAsync("EXPIRE", [key]);
+const expireAsync = (key: string, days: number) => {
+  const future = new Date();
+  future.setDate(future.getDate() + days);
+  const expiredAt = future.getTime();
+  sendCommandAsync("EXPIRE", [key, expiredAt]);
+};
 const deflate = (str: string) => pako.deflate(str, { to: "string" });
 
 client.on("error", function (error) {
@@ -52,7 +57,7 @@ export default async (req: NowRequest, res: NowResponse) => {
       console.log(
         `[set] ${cacheKey} - pw: ${password} - ${saveObj.c.length} chars`
       );
-      res.send(`${baseURL}/get/${cacheKey}${password && "/" + password}`);
+      res.send(`${baseURL}/get/${cacheKey}${password ? "/" + password : ""}`);
       client.unref();
     }
   } catch (error) {

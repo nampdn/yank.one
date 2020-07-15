@@ -2,12 +2,20 @@
   "name": "yank-one",
   "routes": [
     {
-      "src": "/set/([^/]+)/([^/]+)?",
+      "src": "/set/([^/]+)/([^/]+)",
       "dest": "/api/set?key=$1&pw=$2"
+    },
+    {
+      "src": "/set/([^/]+)",
+      "dest": "/api/set?key=$1"
     },
     {
       "src": "/get/([^/]+)/([^/]+)?",
       "dest": "/api/get?key=$1&pw=$2"
+    },
+    {
+      "src": "/get/([^/]+)",
+      "dest": "/api/get?key=$1"
     }
   ]
 }
