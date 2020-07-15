@@ -57,7 +57,7 @@ export default async (req: NowRequest, res: NowResponse) => {
       console.log(
         `[set] ${cacheKey} - pw: ${password} - ${saveObj.c.length} chars`
       );
-      res.send(`${baseURL}/get/${cacheKey}${password ? "/" + password : ""}`);
+      res.send(`${baseURL}/${cacheKey}${password ? "/" + password : ""}`);
       client.unref();
     }
   } catch (error) {
