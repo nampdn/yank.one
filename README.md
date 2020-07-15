@@ -6,7 +6,7 @@ This project is design to help developers and system administrators to quickly y
 
 - [x] Yank any text content and cache on Redis cloud.
 - [x] Using cURL as cross-platform CLI tools.
-- [ ] Support AES-128 text encryption with secret password.
+- [x] Support AES-128 text encryption with secret password.
 - [ ] Support Linux/MacOS/Windows native CLI.
 - [ ] Support binary stream: you will able to save any binary file.
 - [ ] Support Deno script publishing.
