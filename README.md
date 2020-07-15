@@ -1,4 +1,4 @@
-# Run a yank command
+# Yank it one!
 
 This project is design to help developers and system administrators to quickly yank any text content between different OS where has internet.
 
@@ -17,14 +17,18 @@ This project is design to help developers and system administrators to quickly y
 Saving file using:
 
 ```
-cat data.txt | curl -X POST -d @- https://yank.run/api/set?key=mydoc&pw=secret
+cat data.txt | curl -X POST -d @- https://yank.one/set/mydoc/secret
 ```
 
 Get file content:
 
 ```
-curl https://yank.run/api/get?key=mydoc&pw=secret
+curl https://yank.one/get/mydoc/secret
 ```
 
 - `key`: is the unique name
 - `pw`: secure text while yanking
+
+## License
+
+Nam Pham (c) MIT

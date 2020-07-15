@@ -15,7 +15,10 @@ export function encrypt(value: any, password: any) {
 
 const client = redis.createClient(process.env.REDIS_URL);
 
+const sendCommandAsync = promisify(client.send_command).bind(client);
 const setAsync = promisify(client.set).bind(client);
+const getAsync = promisify(client.get).bind(client);
+const expireAsync = (key: string) => sendCommandAsync("EXPIRE", [key]);
 const deflate = (str: string) => pako.deflate(str, { to: "string" });
 
 client.on("error", function (error) {
@@ -32,6 +35,11 @@ export default async (req: NowRequest, res: NowResponse) => {
         .status(400)
         .json({ error: 'Please provide at least "key" in query params.' });
     }
+    if (await getAsync(cacheKey)) {
+      res.send(
+        `Key ${cacheKey} already provisioned, please wait for its creator to consumed.`
+      );
+    }
     if (body) {
       const secret = password ? await bcrypt.hash(password, 10) : null;
       const encodedBody = secret ? encrypt(body, password) : body;
@@ -44,7 +52,7 @@ export default async (req: NowRequest, res: NowResponse) => {
       console.log(
         `[set] ${cacheKey} - pw: ${password} - ${saveObj.c.length} chars`
       );
-      res.send(`${baseURL}/api/get?key=${cacheKey}`);
+      res.send(`${baseURL}/get/${cacheKey}${password && "/" + password}`);
       client.unref();
     }
   } catch (error) {

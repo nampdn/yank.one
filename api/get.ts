@@ -8,6 +8,9 @@ import Cryptr from "cryptr";
 const client = redis.createClient(process.env.REDIS_URL);
 
 const getAsync = promisify(client.get).bind(client);
+const sendCommandAsync = promisify(client.send_command).bind(client);
+const delAsync = (key: string) => sendCommandAsync("DEL", [key]);
+
 const inflate = (str: string) => pako.inflate(str, { to: "string" });
 
 export function decrypt(cipherText: string, password: any) {
@@ -44,6 +47,7 @@ export default async (req: NowRequest, res: NowResponse) => {
           if (match) {
             result = inflate(loadObj.c);
             result = decrypt(result, password);
+            await delAsync(cacheKey as string);
             res.send(result);
           } else {
             res.send("Wrong password!");

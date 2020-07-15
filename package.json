@@ -1,5 +1,5 @@
 {
-  "name": "yank.run",
+  "name": "yank.one",
   "version": "0.0.1",
   "description": "Yank any type of content to another machine with CLI",
   "main": "api/index.js",

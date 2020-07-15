@@ -1,4 +1,5 @@
 {
+  "name": "yank-one",
   "routes": [
     {
       "src": "/set/([^/]+)/([^/]+)?",
