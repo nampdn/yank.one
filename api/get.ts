@@ -40,7 +40,7 @@ export default async (req: NowRequest, res: NowResponse) => {
       if (loadObj.s && loadObj.s.length > 0) {
         if (!password) {
           res.send(
-            `Yanked content at ${cacheKey} has password protected! Append "pw" to your query params!`
+            `Yanked content at ${cacheKey} has password protected! Append /<password> to your url!`
           );
         } else {
           const match = await bcrypt.compare(password, loadObj.s);

@@ -1,7 +1,9 @@
 # Yank it one!
 
-Free tool to quickly yank (copy) any content between internet connected device.
+Free service to quickly yank (copy) any content between internet connected device.
 Yanked content will be vanished immediately after someone GET it!
+
+The design goal is to help you typing less on terminal. It's best for working with different physical devices without copy/paste functions available.
 
 ## Features & Roadmap
 
@@ -14,6 +16,8 @@ Yanked content will be vanished immediately after someone GET it!
 
 ### Roadmap
 
+- [ ] Completely serverless
+- [ ] Gist integration
 - [ ] Interactive CLI documentation
   - [ ] CLI docs when GET at `/`
   - [ ] CLI docs when POST at `/<key>`
@@ -28,17 +32,24 @@ Yanked content will be vanished immediately after someone GET it!
 
 ### Yanking:
 
-Yank a plain text
+Yank a plain text file
 
 ```
-curl -X POST https://yank.one/set/<key>/<secret> --data-raw "Hello World"
+curl https://yank.one/set/<key>/<secret> --data-raw "Hello World"
 ```
 
 ```
-cat doc.txt | curl -X POST -d @- https://yank.one/set/<key>/<secret>
+cat doc.txt | curl -d @- https://yank.one/set/<key>/<secret>
 ```
 
-### Get file content:
+Yank a binary file
+
+```
+hostA# base64 -w 0 ./myphoto.jpg | curl -d @- https://yank.one/set/myphoto
+hostB# curl -s https://yank.one/myphoto | base64 --decode > myphoto.jpg
+```
+
+### Pasting:
 
 Short-hand:
 
@@ -54,6 +65,33 @@ curl https://yank.one/get/<key>/<secret>
 
 - `key`: your very own key
 - `secret`: encrypt text while yanking
+
+## Different with other services:
+
+### [txt.do](textuploader.com)
+
+#### Pros:
+
+- Have input GUI (soon).
+
+#### Cons:
+
+- Only friendly with non-technical user.
+- Need to remember 5 random key.
+- Need to set the timeout manually.
+
+### [transfer.sh](transfer.sh)
+
+#### Pros:
+
+- File upload 10GB.
+- Files stored for 14 days.
+- Lots of usage.
+
+#### Cons:
+
+- Need to copy the key into your mind.
+- 10 characters in domain.
 
 ## License
 
