@@ -3,15 +3,9 @@ import { NowRequest, NowResponse } from "@vercel/node";
 import redis from "redis";
 import pako from "pako";
 import bcrypt from "bcrypt";
-import Cryptr from "cryptr";
+import { encrypt } from "../lib/crypto";
 
 const baseURL = process.env.BASE_URL || "https://yank.run";
-
-export function encrypt(value: any, password: any) {
-  console.log(value, password);
-  const cryptr = new Cryptr(password);
-  return cryptr.encrypt(value);
-}
 
 const client = redis.createClient(process.env.REDIS_URL);
 
@@ -32,7 +26,16 @@ client.on("error", function (error) {
 
 export default async (req: NowRequest, res: NowResponse) => {
   try {
-    const body = req.body;
+    let body = req.body;
+    let bodyKeys = Object.keys(body);
+
+    // Unwrap text key in JSON object
+    // console.log("rawbody: ", body);
+    if (bodyKeys.length === 1) {
+      body = bodyKeys[0];
+      // console.log("plucked body: ", body);
+    }
+
     const cacheKey = req.query.key;
     const password = req.query.pw;
     if (!cacheKey) {
