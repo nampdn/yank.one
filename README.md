@@ -1,6 +1,7 @@
 # Yank it one!
 
-This project is design to help developers and system administrators to quickly yank any text content between different OS where has internet.
+Free tool to quickly yank (copy) any content between internet connected device.
+Yanked content will be vanished immediately after someone GET it!
 
 ## Features & Roadmap
 
@@ -14,21 +15,27 @@ This project is design to help developers and system administrators to quickly y
 ### Roadmap
 
 - [ ] Interactive CLI documentation
-  - [ ] CLI docs when GET at /
-  - [ ] CLI docs when POST at /<key>
+  - [ ] CLI docs when GET at `/`
+  - [ ] CLI docs when POST at `/<key>`
 - [ ] Add optional parameter to prevent the key expiration.
 - [ ] Support Linux/MacOS/Windows native CLI.
 - [ ] Support binary stream: you will able to save any binary file.
-- [ ] Support Deno script publishing.
-- [ ] Persistent using IPFS decentralized network.
-  - [ ] Save persistent IPFS `Qm` key into SQL map with shorten url.
+- [ ] Support `Deno` permanent script publishing.
+- [ ] Persistent using `IPFS` decentralized network.
+  - [ ] Save persistent `IPFS` `Qm` key into SQL map with shorten URL.
 
 ## Quick start
 
-### Saving file using:
+### Yanking:
+
+Yank a plain text
 
 ```
-cat doc.txt | curl -X POST -d @- https://yank.one/set/my-doc
+curl -X POST https://yank.one/set/<key>/<secret> --data-raw "Hello World"
+```
+
+```
+cat doc.txt | curl -X POST -d @- https://yank.one/set/<key>/<secret>
 ```
 
 ### Get file content:
@@ -36,17 +43,17 @@ cat doc.txt | curl -X POST -d @- https://yank.one/set/my-doc
 Short-hand:
 
 ```
-curl https://yank.one/my-doc
+curl https://yank.one/<key>/<secret>
 ```
 
 Full:
 
 ```
-curl https://yank.one/get/mydoc/secret
+curl https://yank.one/get/<key>/<secret>
 ```
 
-- `key`: is the unique name
-- `pw`: secure text while yanking
+- `key`: your very own key
+- `secret`: encrypt text while yanking
 
 ## License
 
