@@ -18,7 +18,7 @@
     },
     {
       "src": "/([^/]+)/?([^/]+)?",
-      "dest": "/api/get?key=$1&pw=$2"
+      "dest": "/api/index?key=$1&pw=$2"
     }
   ]
 }
